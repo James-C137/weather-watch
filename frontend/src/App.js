@@ -1,41 +1,65 @@
 import './App.css';
 import React from 'react';
 
+// Config
+import CONFIG from './config';
+
+// Assets
+import bgImage from './img/sunny.jpg';
+
 // Libraries
 import axios from 'axios';
-
-// Contexts
-import { useLocationContext } from './Contexts/LocationContext/locationContext';
 
 // Components
 import Navbar from './Components/Navbar/Navbar';
 
-// Assets
-import sunny from './img/sunny.jpg';
-
 function App() {
-  const { locationDispatch } = useLocationContext();
+  const [location, setLocation] = React.useState({});
+  const [weatherData, setWeatherData] = React.useState({});
 
-  // Fetch location data
+  console.log(location, weatherData);
+
   React.useEffect(() => {
-    const getLocationData = async () => {
-      const response = await axios.get('https://geolocation-db.com/json');
-      const location = response.data;
-      console.log(response);
-      locationDispatch({type: 'SET_LOCATION', payload: location});
-    }
     getLocationData();
-    // eslint-disable-next-line
   }, []);
 
+  React.useEffect(() => {
+    if (location.lat && location.lon) {
+      getWeatherData();
+    }
+    // eslint-disable-next-line
+  }, [location]);
+
+  const getLocationData = async () => {
+    let location = {};
+    try {
+      const url = `http://ip-api.com/json`;
+      const response = await axios.get(url);
+      location = response.data;
+    }
+    catch (e) {
+      console.log(e);
+    }
+    setLocation(location);
+  }
+
+  const getWeatherData = async () => {
+    let weatherData = {};
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${CONFIG['API_KEY']}`;
+      const response = await axios.get(url);
+      weatherData = response.data;
+    }
+    catch (e) {
+      console.log(e);
+    }
+    setWeatherData(weatherData);
+  }
+
   return (
-    <div
-      className="app"
-      style={{
-        backgroundImage: `url(${sunny})`,
-      }}
-    >
+    <div className="app" style={{backgroundImage: `url(${bgImage})`}}>
       <Navbar />
+      <input type="button" value="Get Weather" onClick={getWeatherData} />
     </div>
   );
 }
