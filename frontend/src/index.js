@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Contexts
+import { LocationProvider } from './Contexts/LocationContext/locationContext';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LocationProvider>
+      <App />
+    </LocationProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

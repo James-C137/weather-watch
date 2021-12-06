@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+
+// Libraries
+import axios from 'axios';
+
+// Contexts
+import { useLocationContext } from './Contexts/LocationContext/locationContext';
+
+// Components
+import Navbar from './Components/Navbar/Navbar';
+
+// Assets
+import sunny from './img/sunny.jpg';
 
 function App() {
+  const { locationDispatch } = useLocationContext();
+
+  // Fetch location data
+  React.useEffect(() => {
+    const getLocationData = async () => {
+      const response = await axios.get('https://geolocation-db.com/json');
+      const location = response.data;
+      console.log(response);
+      locationDispatch({type: 'SET_LOCATION', payload: location});
+    }
+    getLocationData();
+    // eslint-disable-next-line
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="app"
+      style={{
+        backgroundImage: `url(${sunny})`,
+      }}
+    >
+      <Navbar />
     </div>
   );
 }
