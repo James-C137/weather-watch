@@ -1,0 +1,23 @@
+.location {
+  height: 40px;
+  padding: 0px var(--gap-normal);
+  flex-grow: 1;
+
+  color: var(--shade-darker-4);
+  background-color: var(--main-color);
+  border-radius: 20px;
+  font-size: var(--font-size-normal);
+
+  display: flex;
+  align-items: center;
+  gap: var(--gap-small);
+}
+
+.location input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+
+  font-family: inherit;
+  font-size: var(--font-size-normal);
+}
