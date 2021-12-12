@@ -1,0 +1,27 @@
+.weather {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-medium);
+}
+
+.temperature {
+  color: var(--shade-darker-5);
+  
+  display: flex;
+}
+
+.temperature-value {
+  font-size: 72px;
+  line-height: 72px;
+}
+
+.temperature-symbol {
+  font-size: 32px;
+  line-height: 52px;
+}
+
+.weather-icon {
+  /* width: 128px;
+  height: 128px; */
+}

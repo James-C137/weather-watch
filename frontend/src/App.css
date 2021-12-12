@@ -1,6 +1,11 @@
 .app {
   min-height: 100vh;
+  padding: calc(var(--navbar-size) + var(--gap-medium)) var(--gap-medium);
 
-  background-color: var(--bg-color);
+  background-color: var(--main-color);
   background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
 }

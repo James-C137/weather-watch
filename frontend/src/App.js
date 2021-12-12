@@ -12,12 +12,12 @@ import axios from 'axios';
 
 // Components
 import Navbar from './Components/Navbar/Navbar';
+import Recommendations from './Components/Recommendations/Recommendations';
+import Weather from './Components/Weather/Weather';
 
 function App() {
   const [location, setLocation] = React.useState({});
   const [weatherData, setWeatherData] = React.useState({});
-
-  console.log(location, weatherData);
 
   React.useEffect(() => {
     getLocationData();
@@ -57,9 +57,15 @@ function App() {
   }
 
   return (
-    <div className="app" style={{backgroundImage: `url(${bgImage})`}}>
+    <div
+      className="app"
+      style={{backgroundImage: `url(${bgImage})`}}
+    >
+      <Weather weather={weatherData} />
+      <Recommendations />
+
       <Navbar />
-      <input type="button" value="Get Weather" onClick={getWeatherData} />
+      {/* <input type="button" value="Get Weather" onClick={getWeatherData} /> */}
     </div>
   );
 }

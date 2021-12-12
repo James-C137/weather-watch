@@ -1,0 +1,7 @@
+.recommendations {
+  padding: var(--gap-medium);
+  border: 1px solid var(--shade-darker-2);
+  border-radius: var(--border-radius-medium);
+
+  background-color: var(--shade-lighter-2);
+}

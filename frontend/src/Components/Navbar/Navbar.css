@@ -1,15 +1,20 @@
 .navbar {
-  height: 56px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: var(--navbar-size);
   width: 100%;
-  padding: 0 var(--gap-normal);
+  padding: 0 var(--gap-medium);
   box-sizing: border-box;
+  border-bottom: 1px solid var(--shade-darker-2);
 
   color: var(--shade-darker-4);
-  background-color: var(--shade-darker-1);
+  /* background-color: var(--main-color); */
+  background-color: var(--shade-lighter-2);
   font-size: var(--font-size-large);
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--gap-normal);
+  gap: var(--gap-medium);
 }
