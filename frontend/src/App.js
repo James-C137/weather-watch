@@ -18,6 +18,7 @@ import Weather from './Components/Weather/Weather';
 function App() {
   const [location, setLocation] = React.useState({});
   const [weatherData, setWeatherData] = React.useState({});
+  const [recommendations, setRecommendations] = React.useState({});
 
   React.useEffect(() => {
     getLocationData();
@@ -30,30 +31,44 @@ function App() {
     // eslint-disable-next-line
   }, [location]);
 
+  React.useEffect(() => {
+    if (weatherData?.weather?.[0]?.id) {
+      getRecommendations();
+    }
+    // eslint-disable-next-line
+  }, [weatherData])
+
   const getLocationData = async () => {
-    let location = {};
     try {
       const url = `http://ip-api.com/json`;
       const response = await axios.get(url);
-      location = response.data;
+      setLocation(response.data);
     }
     catch (e) {
       console.log(e);
     }
-    setLocation(location);
   }
 
   const getWeatherData = async () => {
-    let weatherData = {};
     try {
       const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${CONFIG['API_KEY']}`;
       const response = await axios.get(url);
-      weatherData = response.data;
+      setWeatherData(response.data);
     }
     catch (e) {
       console.log(e);
     }
-    setWeatherData(weatherData);
+  }
+
+  const getRecommendations = async () => {
+    try {
+      const url = `https://aq8pwxqnk8.execute-api.us-east-1.amazonaws.com/recommendations/${weatherData?.weather?.[0]?.id}`;
+      const response = await axios.get(url);
+      setRecommendations(response.data);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -62,10 +77,9 @@ function App() {
       style={{backgroundImage: `url(${bgImage})`}}
     >
       <Weather weather={weatherData} />
-      <Recommendations />
+      <Recommendations recommendations={recommendations}/>
 
       <Navbar />
-      {/* <input type="button" value="Get Weather" onClick={getWeatherData} /> */}
     </div>
   );
 }
